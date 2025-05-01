@@ -4,10 +4,6 @@ import com.grpc.demo.campaign.Campaign;
 import com.grpc.demo.campaign.CampaignRequest;
 import com.grpc.demo.campaign.CampaignResponse;
 import com.grpc.demo.campaign.CampaignServiceGrpc;
-import com.grpc.demo.media.Media;
-import com.grpc.demo.media.MediaRequest;
-import com.grpc.demo.media.MediaResponse;
-import com.grpc.demo.media.MediaServiceGrpc;
 import com.grpc.demo.product.dto.ProductDto;
 import com.grpc.demo.product.repository.ProductRepository;
 import com.grpc.demo.product.repository.model.Product;
@@ -24,14 +20,13 @@ public class ProductService {
 
     private final CampaignServiceGrpc.CampaignServiceBlockingStub campaignServiceBlockingStub;
     //TODO: Inject mediaServiceBlockingStub.newBlockingStub()
-    private final MediaServiceGrpc.MediaServiceBlockingStub mediaServiceBlockingStub;
 
 
-    public ProductService(ProductRepository productRepository, ManagedChannel campaignManagedChannel, ManagedChannel mediaManagedChannel) {
+
+    public ProductService(ProductRepository productRepository, ManagedChannel campaignManagedChannel) {
         this.productRepository = productRepository;
         this.campaignServiceBlockingStub = CampaignServiceGrpc.newBlockingStub(campaignManagedChannel);
-        //TODO: Assign mediaServiceBlockingStub.newBlockingStub()
-        this.mediaServiceBlockingStub = MediaServiceGrpc.newBlockingStub(mediaManagedChannel);
+        //TODO: Assign mediaServiceBlockingStub
     }
 
     public List<ProductDto> findByName(String name) {
@@ -45,13 +40,6 @@ public class ProductService {
                                         .collect(Collectors.toList()))
                                 .build());
         //TODO: Call mediaServiceBlockingStub.getMediaByProductId()
-        MediaResponse mediaResponse = mediaServiceBlockingStub
-                .getMediaByProductId(
-                        MediaRequest.newBuilder()
-                                .addAllProductId(product.stream()
-                                        .map(Product::getId)
-                                        .collect(Collectors.toList()))
-                                .build());
 
         return product
                 .stream()
@@ -59,13 +47,9 @@ public class ProductService {
                         campaignProduct.getCampaignList()
                                 .stream()
                                 .filter(campaign -> campaign.getProductId().equals(product1.getId()))
-                                .map(Campaign::getRate).toList(),
-                        //TODO: set media[]
-                        mediaResponse.getMediaList()
-                                .stream()
-                                .filter(media -> media.getProductId().equals(product1.getId()))
-                                .map(Media::getUrl)
+                                .map(Campaign::getRate)
                                 .toList()
+                        //TODO: set media[]
                 ))
                 .toList();
 

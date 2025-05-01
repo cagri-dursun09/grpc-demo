@@ -8,11 +8,11 @@ public record ProductDto (
     String id,
     String name,
     String type,
-    List<Double> campaignRates,
+    List<Double> campaignRates
 
     //TODO: List String - mediaUrls
-    List<String> mediaUrls
+
 ){
-    public static ProductDto from(Product product, List<Double> campaignRates, List<String> mediaUrls) {
-        return new ProductDto(product.getId(), product.getName(), product.getType(), campaignRates, mediaUrls);
+    public static ProductDto from(Product product, List<Double> campaignRates) {
+        return new ProductDto(product.getId(), product.getName(), product.getType(), campaignRates);
     }}

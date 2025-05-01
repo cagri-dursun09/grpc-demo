@@ -5,7 +5,7 @@ import io.grpc.ManagedChannelBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-//TODO: Implement gRPC Config - ManagedChannel
+
 @Configuration
 public class GrpcConfig {
 
@@ -17,11 +17,5 @@ public class GrpcConfig {
                 .build();
     }
 
-    @Bean(name = "mediaManagedChannel")
-    public ManagedChannel mediaManagedChannel() {
-        return ManagedChannelBuilder
-                .forAddress("localhost", 9893)
-                .usePlaintext()
-                .build();
-    }
+    //TODO: Define ManagedChannel bean for media grpc service
 }

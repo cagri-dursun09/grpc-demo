@@ -8,7 +8,6 @@ import net.devh.boot.grpc.server.service.GrpcService;
 import java.util.List;
 import java.util.logging.Logger;
 
-//TODO: Implement gRPC Service extends CampaignServiceGrpc.CampaignServiceImplBase
 @GrpcService
 public class CampaignGrpcService extends CampaignServiceGrpc.CampaignServiceImplBase {
 
@@ -25,7 +24,6 @@ public class CampaignGrpcService extends CampaignServiceGrpc.CampaignServiceImpl
                                     StreamObserver<CampaignResponse> responseObserver) {
         logger.info("gRPC Request is received: " + request);
 
-        //TODO: get campaigns by productIdList
         List<Campaign> response = campaignRepository
                 .getCampaignByProductIdIn(request.getProductIdList())
                 .stream()
