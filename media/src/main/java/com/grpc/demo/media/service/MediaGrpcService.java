@@ -23,11 +23,18 @@ public class MediaGrpcService extends MediaServiceGrpc.MediaServiceImplBase {
         this.mediaRepository = mediaRepository;
     }
 
+
+    //TODO: Implement override the gRPC methods, method should return MediaResponse in responseObserver
+    /**
+     * gRPC method to get media by productId
+     *
+     * @param request        the request containing the productId
+     * @param responseObserver the response observer to send the response
+     */
     @Override
     public void getMediaByProductId(MediaRequest request, StreamObserver<MediaResponse> responseObserver) {
         logger.info("gRPC Request is received: " + request);
 
-        //TODO: get media[] by productIdList
         List<Media> response = mediaRepository
                 .getMediaByProductIdIn(request.getProductIdList())
                 .stream()
