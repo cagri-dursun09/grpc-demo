@@ -5,23 +5,9 @@ option java_multiple_files = true;
 package com.grpc.demo.media;
 
 //TODO: Media - mediaId, productId, url
-message Media {
-  string mediaId = 1;
-  string productId = 2;
-  string url = 3;
-}
 
 //TODO: MediaRequest - string[] productId
-message MediaRequest {
-  repeated string productId = 1;
-}
 
 //TODO: MediaResponse - Media[] media
-message MediaResponse {
-  repeated Media media = 1;
-}
 
 //TODO: MediaService - getMediaByProductId
-service MediaService {
-  rpc getMediaByProductId(MediaRequest) returns (MediaResponse);
-}

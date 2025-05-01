@@ -4,24 +4,20 @@ import "google/protobuf/empty.proto";
 option java_multiple_files = true;
 package com.grpc.demo.campaign;
 
-//TODO: Campaign - campaignId, productId, rate
 message Campaign {
   string campaignId = 1;
   string productId = 2;
   double rate = 3;
 }
 
-//TODO: CampaignRequest - productId
 message CampaignRequest {
   repeated string productId = 1;
 }
 
-//TODO: CampaignResponse - campaign
 message CampaignResponse {
   repeated Campaign campaign = 1;
 }
 
-//TODO: CampaignService - getCampaignRateById
 service CampaignService {
   rpc getCampaignRateById(CampaignRequest) returns (CampaignResponse);
 }
